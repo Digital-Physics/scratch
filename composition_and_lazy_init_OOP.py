@@ -10,22 +10,18 @@ class Engine:
         print("Engine is on. self.is_on = True.")
 
 class Wheels:
-    def __init__(self):
+    def __init__(self, fancy=False):
+        self.fancy = fancy
+        if self.fancy:
+            sleep(5) # some construction process that takes time
         self.rotating = False
 
     def gas_pedal_signal(self):
         self.rotating = True
-        print("wheels rotating forward...")
-
-class FancyWheels:
-    def __init__(self):
-        print("fancy wheel installation takes some time")
-        sleep(5)
-        self.rotating = False
-
-    def gas_pedal_signal(self):
-        self.rotating = True
-        print("wheels rotating forward, but it looks like they are going backwards!")
+        if self.fancy:
+            print("wheels rotating forward, but it looks like they are going backwards!")
+        else:
+            print("wheels rotating forward...")
 
 class GasPedal:
     def __init__(self, parent_car_obj, wheels):
@@ -47,18 +43,19 @@ class Car:
     # The @property decorator in Python allows us to define methods that act like attributes, meaning they can be accessed and assigned like regular attributes, 
     # but behind the scenes, they execute custom code. In the given context, @property is used to define getter methods for the engine and gas_pedal attributes in the Car class, allowing lazy initialization.
     @property
-    def engine(self):
-        if self._engine is None:
+    def engine(self, new_engine=None):
+        if new_engine is not None: # setter (that will also return a value which you can ignore if you only want to set the attribute value)
+            self._engine = new_engine
+        elif self._engine is None: # getter
             self._engine = Engine()
         return self._engine
 
     @property
-    def gas_pedal(self):
-        if self._gas_pedal is None:
-            if self.fancy:
-                self._gas_pedal = GasPedal(self, FancyWheels())
-            else:
-                self._gas_pedal = GasPedal(self, Wheels())
+    def gas_pedal(self, new_gas_pedal=None):
+        if new_gas_pedal is not None: # setter (this will also return a value which you can ignore if you only want to set the attribute value)
+            self._gas_pedal = new_gas_pedal
+        elif self._gas_pedal is None: # getter
+            self._gas_pedal = GasPedal(self, Wheels(self.fancy))
         return self._gas_pedal
 
     def start(self):
