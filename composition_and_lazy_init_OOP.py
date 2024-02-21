@@ -95,3 +95,8 @@ print("The Car has some of its attributes/objects now (i.e. its Engine), but not
 print()
 print("Now try the gas pedal...")
 my_car2.gas_pedal.press()
+
+print()
+print("########################")
+print("change the wheels now")
+my_car2.gas_pedal()
