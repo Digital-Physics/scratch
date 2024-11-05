@@ -36,7 +36,7 @@ SE = math.sqrt(p * (1 - p) * (1 / total_without_pumpkin + 1 / total_with_pumpkin
 z_score = (p1 - p2) / SE
 
 # Calculate p-value (one-tailed test)
-p_value = (1 - norm.cdf(abs(z_score)))
+p_value = (1 - norm.cdf(z_score))
 
 # Display results
 print(f"Z-score: {z_score}")
