@@ -45,4 +45,4 @@ print(f"P-value: {p_value}")
 if p_value < 0.05:
     print("reject the null hypothesis. there is only a 5% chance we'd see data this extreme if the that assumption were true")
 else:
-    print("we fail to reject the null hypothesis (that the post-pumpkin positive poop rate hasn't changed) at the 0.05 level")
+    print("we fail to reject the null hypothesis (that the post-pumpkin positive poop rate hasn't decreased) at the 0.05 level")
