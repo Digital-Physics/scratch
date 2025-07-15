@@ -1,0 +1,23 @@
+Today's post explores the neural network architecture options available to users when running experiments on www.nets-vs-automata.net. We'll focus on how different design choices might influence the network's ability to learn and predict Cellular Automata (CA) patterns.
+Neural Network Type
+	•	Dense Networks: These fully-connected neural networks treat each cell position independently and connect all the outputs in one layer to each of the inputs in the next layer. Depending on how you look at them, they're either an inefficient brute-force approach or a general architecture that makes no assumptions.
+	•	Convolutional Networks: ConvNets are popular for vision applications. They apply sliding filters across the grid, naturally capturing patterns in local neighborhoods of cells, similar to how CA rules operate. 
+
+Hidden Layers
+The more hidden layers you have in your network, the more complex data transformations it can perform on the input CA to predict the output CA. More layers may be helpful in certain situations, such as predicting long time horizon CA states, but fitting extra parameters has its downsides.
+Initial Filters (for ConvNets)
+Our ConvNets follow a doubling pattern for filter counts in each successive layer (e.g., starting with 16 filters, the next layers would have 32, 64, etc.). An important question is whether more initial filters always lead to better learning.
+Hidden Layer Neurons (for Dense Nets)
+Consider the relationship between the number of inputs and outputs (e.g. an 8x8 CA = 64)  and the number of neurons in the hidden layer. If there are too few parameters, there may not be enough degrees of freedom in the network to represent and predict the CA outputs. If there are too many neurons in each hidden layer, it may be overkill and lead to slower learning or overfitting. 
+Dropout Rate
+The dropout rate introduces some random faultiness to the neurons’ input weights during training, but this regularization technique may improve robustness and generalization. 
+Hidden Layer Activations
+The signals that flow from one layer to the next are shaped by the activation functions attached to the output of each neuron. For example, a "Sigmoid" activation function maps all outputs to a number between 0 and 1, whereas a "ReLU" activation function maps all negative numbers to 0 and leaves the rest unchanged. Are the binary censoring and unbounded outputs of ReLU better than the smooth s-curves of Sigmoid and Tanh?
+Fixed Parameters (not configurable)
+	•	Adam Optimizer: We're using this learning optimization method that adjusts the learning rate.
+	•	Binary Cross Entropy Loss: This is the metric the network and learning process is trying to minimize. The closer we can get it to 0, the better the model’s performance.
+	•	Final Layer Sigmoid Activations: We fix the final output layer’s activation functions to sigmoids, ensuring all output neuron predictions are between 0 and 1. 
+	•	Final Dense Layer for Convolutional Neural Nets: The final convolutional layer is flattened and then connected to a dense layer (with sigmoid activations) to get the desired CA dimension for the output.
+	•	3x3 ConvNet Kernel/Filter Size: We mirrored the neighborhood size in CA that determines the next state for each cell. Perhaps at some point we’ll relax this assumption and explore larger filter sizes which may benefit longer time horizon predictions in shallower ConvNets.
+
+Our next post will look at the learning and optimization process. Stay tuned.
