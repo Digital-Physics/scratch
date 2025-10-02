@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     # Example 1: Extract pages 95 to 100 from 'turing.pdf'
     input_file = "turing.pdf"
-    output_file = "sqrt_two_turing.pdf"
-    start = 115
-    end = 122
+    output_file = "turing_excerpt.pdf"
+    start = 140
+    end = 211
     extract_pages_to_pdf(input_file, output_file, start, end)
