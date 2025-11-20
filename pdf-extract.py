@@ -53,8 +53,8 @@ if __name__ == "__main__":
     # and adjust the start and end page numbers as needed.
 
     # Example 1: Extract pages 95 to 100 from 'turing.pdf'
-    input_file = "turing.pdf"
-    output_file = "turing_excerpt.pdf"
-    start = 140
-    end = 211
+    input_file = "feuds.pdf"
+    output_file = "feuds_excerpt.pdf"
+    start = 79
+    end = 99
     extract_pages_to_pdf(input_file, output_file, start, end)
